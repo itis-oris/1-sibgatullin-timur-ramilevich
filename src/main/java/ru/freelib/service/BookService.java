@@ -36,17 +36,6 @@ public class BookService {
         return bookDao.findById(id);
     }
 
-    public void addBook(Book book) {
-        if (book.getTitle() == null || book.getTitle().isEmpty()) {
-            throw new IllegalArgumentException("Название книги не может быть пустым");
-        }
-        bookDao.save(book);
-    }
-
-    public void deleteBook(Long id) {
-        bookDao.delete(id);
-    }
-
     public List<Book> findByAuthor(Long id) {
         return bookDao.findByAuthorId(id);
     }
