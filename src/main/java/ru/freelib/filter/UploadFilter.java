@@ -9,7 +9,7 @@ import ru.freelib.model.User;
 import java.io.IOException;
 import java.util.Objects;
 
-@WebFilter({"/upload", "/upload/*"})
+@WebFilter(filterName = "UploadFilter")
 public class UploadFilter implements Filter {
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
             throws IOException, ServletException {
