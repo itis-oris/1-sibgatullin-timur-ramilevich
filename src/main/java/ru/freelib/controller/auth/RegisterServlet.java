@@ -2,10 +2,7 @@ package ru.freelib.controller.auth;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ru.freelib.model.User;
@@ -56,6 +53,13 @@ public class RegisterServlet extends HttpServlet {
                 session.setAttribute("role", user.getRole());
                 session.setAttribute("nickname", user.getNickname());
                 session.setAttribute("description", user.getDescription());
+
+                Cookie userIdCookie = new Cookie("userId", String.valueOf(user.getId()));
+                userIdCookie.setHttpOnly(true);
+                userIdCookie.setMaxAge(60 * 60 * 24 * 7);
+                userIdCookie.setPath("/");
+                response.addCookie(userIdCookie);
+
                 String url = (String) request.getSession().getAttribute("redirectAfterLogin");
                 if (url != null) {
                     request.getSession().removeAttribute("redirectAfterLogin");

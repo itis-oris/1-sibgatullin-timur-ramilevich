@@ -2,10 +2,7 @@ package ru.freelib.controller.auth;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -22,6 +19,10 @@ public class LogoutServlet extends HttpServlet {
         if (session != null) {
             session.invalidate();
         }
+        Cookie userIdCookie = new Cookie("userId", "");
+        userIdCookie.setPath("/");
+        userIdCookie.setMaxAge(0);
+        response.addCookie(userIdCookie);
         request.setAttribute("currentContext", request.getContextPath());
         response.sendRedirect(request.getContextPath() + "/home");
     }
